@@ -67,17 +67,116 @@ One note before you delve into your tasks: for each endpoint, you are expected t
 8. Create a `POST` endpoint to get questions to play the quiz. This endpoint should take a category and previous question parameters and return a random questions within the given category, if provided, and that is not one of the previous questions.
 9. Create error handlers for all expected errors including 400, 404, 422, and 500.
 
-## Documenting your Endpoints
+## Endpoints Documentation
 
-You will need to provide detailed documentation of your API endpoints including the URL, request parameters, and the response body. Use the example below as a reference.
 
-### Documentation Example
-
-`GET '/api/v1.0/categories'`
+`GET '/api/categories'`
 
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: An object with a single key, `categories`, that contains an object of `id: category_string` key: value pairs.
+
+```json
+{
+  "1": "Science",
+  "2": "Art",
+  "3": "Geography",
+  "4": "History",
+  "5": "Entertainment",
+  "6": "Sports"
+}
+```
+
+`GET '/api/questions'`
+
+- Fetches a table of dictionary of questions in which the keys are the ids , answers , categories , difficulties , questions and the values are respectively  the corresponding id , answers , categories , difficulties , questions   of the question end the return value is paginated by 10 value per page
+- Request Arguments: None
+- Returns: A table of An objet with the  keys, `Questions`, that contains the objects of `id: question_id_int`  ,`category: category_string` , `difficulty: question_difficulty_string` , `answers: question_answer_string` , `question: question_question_value_string` , and `success: request_state_boolean` , `totals_questions: question_total_number_int` key: value pairs.
+
+```json
+{
+    "questions": [
+        {
+            "answer": "Muhammad Ali",
+            "category": 4,
+            "difficulty": 1,
+            "id": 9,
+            "question": "What boxer's original name is Cassius Clay?"
+        },
+        {
+            "answer": "Brazil",
+            "category": 6,
+            "difficulty": 3,
+            "id": 10,
+            "question": "Which is the only team to play in every soccer World Cup tournament?"
+        },
+        {
+            "answer": "Uruguay",
+            "category": 6,
+            "difficulty": 4,
+            "id": 11,
+            "question": "Which country won the first ever soccer World Cup in 1930?"
+        },
+        {
+            "answer": "George Washington Carver",
+            "category": 4,
+            "difficulty": 2,
+            "id": 12,
+            "question": "Who invented Peanut Butter?"
+        },
+        {
+            "answer": "Lake Victoria",
+            "category": 3,
+            "difficulty": 2,
+            "id": 13,
+            "question": "What is the largest lake in Africa?"
+        },
+        {
+            "answer": "The Palace of Versailles",
+            "category": 3,
+            "difficulty": 3,
+            "id": 14,
+            "question": "In which royal palace would you find the Hall of Mirrors?"
+        },
+        {
+            "answer": "Agra",
+            "category": 3,
+            "difficulty": 2,
+            "id": 15,
+            "question": "The Taj Mahal is located in which Indian city?"
+        },
+        {
+            "answer": "Escher",
+            "category": 2,
+            "difficulty": 1,
+            "id": 16,
+            "question": "Which Dutch graphic artist–initials M C was a creator of optical illusions?"
+        },
+        {
+            "answer": "Mona Lisa",
+            "category": 2,
+            "difficulty": 3,
+            "id": 17,
+            "question": "La Giaconda is better known as what?"
+        },
+        {
+            "answer": "One",
+            "category": 2,
+            "difficulty": 4,
+            "id": 18,
+            "question": "How many paintings did Van Gogh sell in his lifetime?"
+        }
+    ],
+    "success": true,
+    "totals_questions": 18
+}
+```
+
+`DELETE '/api/questions/<int:id_question>'`
+
+- delete a specifique question through its id given as an argument of the request and the request will return a dictionary contains the keys , values 
+- Request Arguments: id_question wich is the integer 
+- Returns: An object with a numerous keys, `questions`, that contains an object of `success: request_state_boolean` , `totals_questions: question_total_number_int` , `deleted: id_of_question_deleted_int` , `questions: A table of An objet with the  keys of question` key: value pairs.
 
 ```json
 {

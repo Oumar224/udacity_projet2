@@ -4,6 +4,8 @@ import Question from './Question';
 import Search from './Search';
 import $ from 'jquery';
 
+
+
 class QuestionView extends Component {
   constructor() {
     super();
@@ -14,6 +16,7 @@ class QuestionView extends Component {
       categories: {},
       currentCategory: null,
     };
+    this.base_url = "http://127.0.0.1:5000"
   }
 
   componentDidMount() {
@@ -22,7 +25,7 @@ class QuestionView extends Component {
 
   getQuestions = () => {
     $.ajax({
-      url: `/questions?page=${this.state.page}`, //TODO: update request URL
+      url: `/api/questions?page=${this.state.page}`, //TODO: update request URL
       type: 'GET',
       success: (result) => {
         this.setState({
@@ -34,7 +37,7 @@ class QuestionView extends Component {
         return;
       },
       error: (error) => {
-        alert('Unable to load questions. Please try your request again');
+        alert('Unable to load questions1. Please try your request again');
         return;
       },
     });
@@ -65,7 +68,7 @@ class QuestionView extends Component {
 
   getByCategory = (id) => {
     $.ajax({
-      url: `/categories/${id}/questions`, //TODO: update request URL
+      url: `/api/category/${id}/questions`, //TODO: update request URL
       type: 'GET',
       success: (result) => {
         this.setState({
@@ -76,7 +79,7 @@ class QuestionView extends Component {
         return;
       },
       error: (error) => {
-        alert('Unable to load questions. Please try your request again');
+        alert('Unable to load questions2. Please try your request again');
         return;
       },
     });
@@ -84,25 +87,26 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `/questions`, //TODO: update request URL
+      url: `/api/search/questions`, //TODO: update request URL
       type: 'POST',
       dataType: 'json',
       contentType: 'application/json',
-      data: JSON.stringify({ searchTerm: searchTerm }),
+      data: JSON.stringify({ "search_term": searchTerm }),
       xhrFields: {
         withCredentials: true,
       },
       crossDomain: true,
       success: (result) => {
         this.setState({
-          questions: result.questions,
-          totalQuestions: result.total_questions,
+          questions: result.questions ,
+          totalQuestions: result.totals_questions,
           currentCategory: result.current_category,
         });
         return;
       },
       error: (error) => {
-        alert('Unable to load questions. Please try your request again');
+        console.log("error : "  , error );
+        alert('Unable to load questions3. Please try your request again');
         return;
       },
     });
@@ -112,13 +116,13 @@ class QuestionView extends Component {
     if (action === 'DELETE') {
       if (window.confirm('are you sure you want to delete the question?')) {
         $.ajax({
-          url: `/questions/${id}`, //TODO: update request URL
+          url: `/api/questions/${id}`, //TODO: update request URL
           type: 'DELETE',
           success: (result) => {
             this.getQuestions();
           },
           error: (error) => {
-            alert('Unable to load questions. Please try your request again');
+            alert('Unable to load questions4. Please try your request again');
             return;
           },
         });
@@ -133,6 +137,7 @@ class QuestionView extends Component {
           <h2
             onClick={() => {
               this.getQuestions();
+              
             }}
           >
             Categories

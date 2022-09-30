@@ -88,7 +88,7 @@ You can optionally update this game play to increase the number of questions or 
 
 `GET '/questions?page=${integer}'`
 
-- Fetches a paginated set of questions, a total number of questions, all categories and current category string.
+- Fetches a paginated set of questions, a total number of questions , all categories and current category string.
 - Request Arguments: `page` - integer
 - Returns: An object with 10 paginated questions, total questions, object including all categories, and current category string
 
